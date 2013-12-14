@@ -1,0 +1,23 @@
+[main] ld 1014 (0) exception: trapped!
+[main] ld 1014 (0) exception: code 0xC0000005 at 0x61052B30
+[main] ld 1014 (0) exception: ax 0x0 bx 0xA034EC0 cx 0xFFFFFFFF dx 0x485FF
+[main] ld 1014 (0) exception: si 0x0 di 0x485FF bp 0x245F8F4 sp 0x245F888
+[main] ld 1014 (0) exception: exception is: STATUS_ACCESS_VIOLATION
+[main] ld 1014 (0) stack: Stack trace:
+[main] ld 1014 (0) stack: frame 0: sp = 0x245F428, pc = 0x6100A2C3
+[main] ld 1014 (0) stack: frame 1: sp = 0x245F464, pc = 0x77A3B499
+[main] ld 1014 (0) stack: frame 2: sp = 0x245F488, pc = 0x77A3B46B
+[main] ld 1014 (0) stack: frame 3: sp = 0x245F538, pc = 0x779F0133
+[main] ld 1014 (0) stack: frame 4: sp = 0x245F8F4, pc = 0x42B998
+[main] ld 1014 (0) stack: frame 5: sp = 0x245F924, pc = 0x4370B6
+[main] ld 1014 (0) stack: frame 6: sp = 0x245F964, pc = 0x43E3DD
+[main] ld 1014 (0) stack: frame 7: sp = 0x245FA4C, pc = 0x41A9E6
+[main] ld 1014 (0) stack: frame 8: sp = 0x245FA5C, pc = 0x417A5E
+[main] ld 1014 (0) stack: frame 9: sp = 0x245FA90, pc = 0x61004402
+[main] ld 1014 (0) stack: frame 10: sp = 0x245FF50, pc = 0x61004420
+[main] ld 1014 (0) stack: frame 11: sp = 0x245FF5C, pc = 0x44DA86
+[main] ld 1014 (0) stack: frame 12: sp = 0x245FF6C, pc = 0x40103A
+[main] ld 1014 (0) stack: frame 13: sp = 0x245FF88, pc = 0x75B2336A
+[main] ld 1014 (0) stack: frame 14: sp = 0x245FF94, pc = 0x77A19F72
+[main] ld 1014 (0) stack: frame 15: sp = 0x245FFD4, pc = 0x77A19F45
+[main] ld 1014 (0) stack: End of stack trace (more stack frames may be present)
