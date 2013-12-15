@@ -9,5 +9,6 @@ typedef struct{
     int length;
 }list;
 list* create();
-int insert(list *queue,Queue *q);	
+typedef int compFunc(void* , void*);
+int insert(list *queue,Queue *q,compFunc* compare);
 int removeElement(list* queue);

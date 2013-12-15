@@ -13,12 +13,13 @@ int frontInsert(Queue *process,list *queue){
     queue->length++;
     return queue->length;        
 }
-int insert(list *queue,Queue *q){
+int insert(list *queue,Queue *q,compFunc* compare){
     Queue *previous,*next,*temp;
+    int result;
     temp = queue->front;
     if(queue->length == 0)                
         return frontInsert(q,queue);
-    if(q->priority < temp->priority)
+   	if(compare(&q->priority,&temp->priority) < 0) 
         return frontInsert(q,queue);
     while(temp != NULL){
         previous = temp;
