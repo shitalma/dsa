@@ -4,35 +4,34 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-Queue* create(int elementSize, int no_of_elements){
+Queue* create(int elementSize, int length){
 	Queue* queue = calloc(1,sizeof(Queue));
-	queue->front=-1;
-	queue->rear=-1;
-	queue->elements= calloc(no_of_elements,elementSize);
-	queue->no_of_elements=no_of_elements;
+	queue->front = -1;
+	queue->rear = -1;
+	queue->elements= calloc(length,elementSize);
+	queue->length=length;
 	queue->elementSize=elementSize;
 	return queue;
 }
-bool isFull(Queue* queue){ 
-	if(queue->front == -1 && queue->rear == queue->no_of_elements-1) return true;
-	if(queue->rear == queue->no_of_elements-1 && queue->front > 0) queue->rear=-1;
+int isFull(Queue* queue){ 
+	if(queue->front == -1 && queue->rear == queue->length-1) return 1;
+	if(queue->rear == queue->length-1 && queue->front > 0) queue->rear=-1;
 	return (queue->front == queue->rear+1);
 }
-bool isEmpty(Queue* queue){
-	if(queue->front ==-1 && queue->rear == -1) return true;
-	return (queue->front == queue->rear+1);
+int isEmpty(Queue* queue){
+	if(queue->front ==-1 && queue->rear == -1) return 1;
+	return (queue->front == queue->rear);
 }
-bool enqueue(Queue* queue,void* element)
-{
-	if(isFull(queue)) return false;
+int enqueue(Queue* queue,void* element){
+	if(isFull(queue)) return 0;
 	queue->rear++;
 	memcpy((queue->elements+(queue->elementSize*queue->rear)) , element,queue->elementSize);
-	return true;
+	return 1;
 }
 void* dequeue(Queue* queue){
 	void* element = malloc(queue->elementSize);
-	if(isEmpty(queue)) return false;
+	if(isEmpty(queue)) return NULL;
 	queue->front++;
-	memmove(element, queue->elements+(queue->elementSize*queue->front), queue->elementSize);
+	memcpy(element, queue->elements+(queue->elementSize*queue->front), queue->elementSize);
 	return element;
 }
