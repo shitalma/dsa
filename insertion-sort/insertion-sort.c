@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <memory.h>
 
-void isort(void* base, size_t numberOfElements, size_t elementSize,
+void isort(void* base, int numberOfElements, int elementSize,
 			compare comp) {
     int i, j;
     void* temp = calloc(1, elementSize);
@@ -11,14 +11,10 @@ void isort(void* base, size_t numberOfElements, size_t elementSize,
     
     for (i = 1; i < numberOfElements; i++) {
     	memcpy(temp, base + (i * elementSize), elementSize);
-
-    	for (j = i - 1; j >= 0; j--) {
+        for (j = i - 1; j >= 0; j--) {
     		elementToCompare = base + j * elementSize;
     		comparisonResult = comp(temp, elementToCompare);
-
-    		if (comparisonResult >= 0) {
-    			break; 
-    		}
+            if (comparisonResult >= 0)  break; 
     		memcpy(elementToCompare + elementSize, 
     					elementToCompare, elementSize);    		    						
         	} 
