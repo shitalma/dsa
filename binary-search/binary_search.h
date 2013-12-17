@@ -1,4 +1,2 @@
-#include <stdbool.h>
-typedef char String[50];
-typedef int compareFunction(void* , void*);
+typedef int compareFunction(void* key , void* element);
 void* search_generic(void* array,void* key,int length,int elementSize,compareFunction* compare);
