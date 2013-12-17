@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "match_braces.h"
 #include "stack.h"
+
 void test_bracket_match(){
 	String actual;
 	strcpy(actual,"{[()]}");
@@ -27,11 +28,11 @@ void test_4_bracket_match(){
 }
 void test_5_bracket_match(){
 	String actual;
-	strcpy(actual,"{[(manali)]}");
-	ASSERT(1==doBracketsMatch(actual));
+	strcpy(actual,"{[(shital)]}");
+	ASSERT(1 == doBracketsMatch(actual));
 }
 void test_6_bracket_match(){
 	String actual;
-	strcpy(actual,"{[(manali)kajal])}");
+	strcpy(actual,"{[(shital)mane])}");
 	ASSERT(0==doBracketsMatch(actual));
 }
