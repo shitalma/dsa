@@ -1,32 +1,29 @@
-# include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
 #include "match_braces.h"
-#include "../stack/stack.h"
-bool compare(char value,stack* stack){
-    void* current = peek(stack);
-    if(NULL == current || (value != *(char*)current)) return false;
-    pop(stack);
-    return true;
+#include "stack.h"
+#include <stdio.h>
+#include <string.h>
+int isMatch(stack* Stack,char input){
+    char res = (*(char*)top(Stack));
+    if((res=='(' && input==')') 
+        || (res=='[' && input==']') 
+        || (res=='{' && input=='}'))
+        return 1;
+    return 0;       
+
 }
-bool breakMatch(String str){
-    stack* stack;
-    const char* input = str;
-    int i,limit;
-    char value;
-    stack = create(500,sizeof(char));
-    for(i=0;i< strlen(input);i++){
-        if(input[i]=='{'|| input[i]=='[' || input[i]=='(')
-                push(stack,(void*)&input[i]);
-        if(input[i]=='}')
-            if(!compare('{',stack))return false;
-        if(input[i] == ']')
-            if(!compare('[',stack))return false;
-        if(input[i] == ')')
-            if(!compare('(',stack))return false;
+int doBracketsMatch(String str){
+    stack* Stack;
+    int counter;
+    Stack = create(sizeof(char),strlen(str));
+    for(counter = 0;counter<strlen(str);counter++){
+        if(str[counter]=='(' || str[counter]=='[' || str[counter]=='{')
+            push(Stack,&str[counter]);
+        if(str[counter]==')' || str[counter]==']' || str[counter]=='}'){
+            if(!isMatch(Stack,str[counter]))
+                return 0;
+            pop(Stack);
+        }
     }
-    if(stack->top != 0)
-        return false;
-    return true;
+
+    return 1;
 }
