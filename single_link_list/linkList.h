@@ -9,4 +9,4 @@ typedef struct list{
 
 slist* create();
 int insert(slist *list,int index,void* data);
-int deleteNode(slist* list,int index);
+void* deleteNode(slist* list,int index);

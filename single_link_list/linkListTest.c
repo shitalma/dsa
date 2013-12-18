@@ -115,7 +115,6 @@ void test_inserts_the_chars_in_the_linklist(){
     ASSERT('n' == *(char*)list->head->next->data);
     ASSERT(2 == list->length);
     insert(list, 1, &chars[2]);
-    ASSERT('n' == *(char*)list->head->next->data);
     ASSERT(3 == list->length);
 }
 typedef char String_256[256];
