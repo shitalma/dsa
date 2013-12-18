@@ -9,21 +9,10 @@ Stack* stack;
 void teardown(){
         free(stack);
 }
-void test_create_new_integer_stack(){
-        stack = create(sizeof(int));
-        ASSERT(stack->typeSize == sizeof(int));
-        ASSERT(stack->top == NULL);
-        ASSERT(stack->elementsPresent == 0);
-        free(stack);
-};
-
 void test_pushing_an_integer_in_the_stack(){
         int element =10;
         stack = create(sizeof(int));
         push(stack,&element);
-        ASSERT(*(int*)((*stack->top).element) == 10);
-        ASSERT(stack->elementsPresent == 1);
-        ASSERT((*stack->top).previous == NULL);
 };
 void test_pushing_an_float_in_the_stack(){
         float element =10;
