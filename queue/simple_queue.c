@@ -12,8 +12,7 @@ Queue* create(int elementSize, int no_of_elements){
         queue->elementSize=elementSize;
         return queue;
 }
-bool isFull(Queue* queue)
-{
+bool isFull(Queue* queue){
         return (queue->rear+1) == queue->no_of_elements ;
 }
 bool isEmpty(Queue* queue){

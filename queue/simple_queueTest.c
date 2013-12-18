@@ -26,43 +26,6 @@ void tearDown(){
         free(stringQueue);
 
 }
-void test_1_create_queue_allocates_memory_for_five_char_elements(){
-        int i;
-        int test_arr[] = {0,0,0,0,0};
-        i = memcmp(test_arr,charQueue->elements,5);
-        ASSERT(!i);
-        ASSERT(charQueue->elementSize == sizeof(char));
-        ASSERT(charQueue->rear == -1);
-        ASSERT(charQueue->no_of_elements == 5);
-}
-void test_2_create_queue_allocates_memory_for_five_int_elements(){
-        int i;
-        int test_arr[] = {0,0,0,0,0};
-        i=memcmp(test_arr,intQueue->elements,5);
-        ASSERT(!i);
-        ASSERT(intQueue->elementSize == 4);
-        ASSERT(intQueue->rear == -1);
-        ASSERT(intQueue->no_of_elements == 5);
-}
-void test_3_create_queue_allocates_memory_for_five_float_elements(){
-        int i;
-        int test_arr[] = {0,0,0,0,0};
-        i=memcmp(test_arr,floatQueue->elements,5);
-        ASSERT(!i);
-        ASSERT(floatQueue->elementSize==sizeof(float));
-        ASSERT(floatQueue->rear==-1);
-        ASSERT(floatQueue->no_of_elements==5);
-}
-void test_4_create_queue_allocates_memory_for_five_char_strings(){
-        int i;
-        string test_arr[] = {0,0,0,0,0};
-        i=memcmp(test_arr,stringQueue->elements,5);
-        ASSERT(!i);
-        ASSERT(stringQueue->elementSize==sizeof(string));
-        ASSERT(stringQueue->rear==-1);
-        ASSERT(stringQueue->no_of_elements == 5);
-}
-
 // ---------------------------- ENQUE ---------------------------------
 
 void test_5_enqueue_char_element_at_rear_of_queue(){
