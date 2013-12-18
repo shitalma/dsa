@@ -21,16 +21,14 @@ int enqueue(void* queueAddress,void* data, size_t priority,compFunc* compare){
     element *previous,*next,*temp;
     int result;
     temp = node->data;
-    if(queue->length == 0)
-        return insertNode(queue, queue->length, node);
-    if(compare(&node->priority,&temp->priority) < 0)
-        return insertNode(queue,0, node);
+    if(queue->length == 0 || compare(&node->priority,&temp->priority))
+        return insertNode(queue, 0, node);
     while(temp != NULL){
         previous = temp->data;
         temp->data = queue->head->next;
         if(node->priority < next->priority){
                 previous->data = node;
-                    return ++queue->length;
+            return ++queue->length;
         }
     };
     return 0;
