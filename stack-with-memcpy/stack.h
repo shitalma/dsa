@@ -11,5 +11,5 @@ typedef struct {
 typedef char String[256];
 
 Stack* create(int typeSize);
-void push(Stack* stack,void* element);
+int push(Stack* stack,void* element);
 Stack_element* pop(Stack* stack);

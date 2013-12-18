@@ -12,7 +12,7 @@ Stack* create(int typeSize){
         return stack;
 };
 
-void push(Stack* stack,void* element){
+int push(Stack* stack,void* element){
         Stack_element* stack_element = calloc(1,sizeof(Stack_element));
         int *elementToBePushed = (int*)calloc(1,stack->typeSize);
         memcpy(elementToBePushed,element,stack->typeSize);
@@ -26,6 +26,7 @@ void push(Stack* stack,void* element){
                 stack->top = stack_element;
         }
         stack->elementsPresent++;
+        return 1;
 };
 
 Stack_element* pop(Stack* stack){
