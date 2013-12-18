@@ -7,7 +7,7 @@ typedef struct {
     data* top;
     int elementsPresent;
     int typeSize;
-} Stack;
+}Stack;
 typedef char String[256];
 
 Stack* create(int typeSize);

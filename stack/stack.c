@@ -13,7 +13,6 @@ Stack* create(int typeSize){
 };
 void push(Stack* stack,void* element){
     data* stack_element = calloc(1,sizeof(data));
-    int *elementToBePushed = (int*)calloc(1,stack->typeSize);
     stack_element->element = element;
     if(stack->top == NULL){
         stack_element->previous = NULL;
