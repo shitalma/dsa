@@ -5,8 +5,8 @@ typedef struct node{
 typedef struct list{
 	Node* head;
 	int length;
-}slist;
+}List;
 
-slist* create();
-int insert(slist *list,int index,void* data);
-void* deleteNode(slist* list,int index);
+List* create();
+int insert(List *list,int index,void* data);
+void* deleteNode(List* list,int index);

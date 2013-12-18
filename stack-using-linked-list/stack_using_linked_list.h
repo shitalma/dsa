@@ -1,3 +1,4 @@
 #include "linkList.h"
-int push(slist* s,void* element);
-void* pop(slist* s);
+
+int push(List* s,void* element);
+void* pop(List* s);

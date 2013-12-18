@@ -1,24 +1,21 @@
 #include "linkList.h"
-#include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
-#include <stdbool.h>
 
-slist* create(){
-	slist* list;
-	list = (slist*)malloc(sizeof(slist));
+List* create(){
+	List* list;
+	list = (List*)malloc(sizeof(List));
 	list->head = NULL;
 	list->length = 0;
 	return list;
 }
-int insertAtFront(Node* newNode,slist* list,int index,Node* head){
+int insertAtFront(Node* newNode,List* list,int index,Node* head){
 	if(index == 0){
 		list->head = newNode;
 	    return 1;
     }
     return 0;
 }
-int insertAtEnd(Node* newNode,slist* list,int index,Node* head){
+int insertAtEnd(Node* newNode,List* list,int index,Node* head){
 	if(index == list->length){               
         head->next = newNode;
 		return 1;
@@ -29,7 +26,7 @@ void insertAtMiddle(Node* newNode,Node* head){
 	newNode->next = head->next;
 	head->next = newNode;
 }
-int insert(slist *list,int index,void* data){
+int insert(List *list,int index,void* data){
     Node *head,*newNode;
     int i;
     if(index <= -1 || index > list->length)
@@ -48,7 +45,7 @@ int insert(slist *list,int index,void* data){
 	insertAtMiddle(newNode, head);
     return 1;
 }
-void* deleteNode(slist* list,int index){
+void* deleteNode(List* list,int index){
     int i;
     void* data;
     Node *head, *deletedNode;
