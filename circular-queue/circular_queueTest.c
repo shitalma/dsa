@@ -4,11 +4,8 @@
 #include <string.h>
 #include <stdio.h>
 
-typedef char string[50];
 Queue* queue;
-void teardown(){
-	free(queue);
-}
+typedef char string[50];
 void test_enqueue_char_element_in_the_queue(){
 	char c[] = {'K','L','M','N','O'};
 	queue = create(sizeof(char),6);
@@ -17,6 +14,7 @@ void test_enqueue_char_element_in_the_queue(){
 	ASSERT(enqueue(queue,&c[2]));
 	ASSERT(enqueue(queue,&c[3]));
 	ASSERT(enqueue(queue,&c[4]));
+	free(queue);
 }
 void test_enqueue_char_element_return_false_when_queue_is_full(){
 	char c[]= {'Q','P'};
@@ -24,17 +22,20 @@ void test_enqueue_char_element_return_false_when_queue_is_full(){
 	ASSERT(enqueue(queue,&c[0]));
 	ASSERT(enqueue(queue,&c[1]));
 	ASSERT(!enqueue(queue,&c[0]));
+	free(queue);
 }
 void test_enqueue_float_element_at_rear_of_queue(){
 	float c[]= {1.0,2.0};
 	queue = create(sizeof(float),2);
 	ASSERT(enqueue(queue,&c[0]));
 	ASSERT(enqueue(queue,&c[1]));
+	free(queue);
 }
 void test_enqueue_string_element_at_rear_of_queue(){
 	string c = "hi";
 	queue = create(sizeof(string),5);
 	ASSERT(enqueue(queue,&c));
+	free(queue);
 }
 void test_enqueue_string_element_return_false_when_queue_is_full(){
 	string c[] = {"hi","bye"};
@@ -42,6 +43,7 @@ void test_enqueue_string_element_return_false_when_queue_is_full(){
 	ASSERT(enqueue(queue,&c[0]));
 	ASSERT(enqueue(queue,&c[1]));
 	ASSERT(!enqueue(queue,&c[0]));
+	free(queue);
 }
 void test_dequeue_int_element_at_front_of_queue(){
 	int data[]={2,3,4};
@@ -52,6 +54,7 @@ void test_dequeue_int_element_at_front_of_queue(){
 	enqueue(queue,&data[2]);
 	element = dequeue(queue);
 	ASSERT(*(int*)element == 2);
+	free(queue);
 }
 void test_dequeue_float_element_at_front_of_queue(){
 	void* element;
@@ -62,6 +65,7 @@ void test_dequeue_float_element_at_front_of_queue(){
 	enqueue(queue,&data[2]);
 	element = dequeue(queue);
 	ASSERT(*(float*)element == 2.0f);
+	free(queue);
 }
 void test_dequeue_string_element_at_front_of_queue(){
 	void* element;
@@ -72,6 +76,7 @@ void test_dequeue_string_element_at_front_of_queue(){
 	ASSERT(enqueue(queue,&data[2]));
 	element = dequeue(queue);
 	ASSERT(!strcmp(*(string*)element , "sayali"));
+	free(queue);
 }
 void test_dequeue_int_element_at_rear_of_queue_at_first(){
 	void* element;
@@ -94,6 +99,7 @@ void test_dequeue_int_element_at_rear_of_queue_at_first(){
 	ASSERT(enqueue(queue,&value[7]));
 	element = dequeue(queue);
 	ASSERT(*(int*)element == 5);
+	free(queue);
 }
 void test_dequeue_int_element_will_return_if_circular_queue_is_actually_full(){
 	void* element;
@@ -108,4 +114,5 @@ void test_dequeue_int_element_will_return_if_circular_queue_is_actually_full(){
 	element = dequeue(queue);
 	ASSERT(enqueue(queue,&value[6]));
 	ASSERT(false == enqueue(queue,&value[7]));
+	free(queue);
 }
