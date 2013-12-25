@@ -2,15 +2,14 @@
 #include "internalTree.h"
 #include <stdlib.h>
 #include <stdio.h>
-int i = 0;
+
 TreeNode* getTreeNode(DoubleList list,void *dataToFind,compare cmp){
 	Iterator it = getIterator(&list);
 	TreeNode *tn;
 	while(it.hasNext(&it)){
 		tn = (TreeNode*)it.next(&it);
-		if(0 == cmp(tn->data,dataToFind)){
+		if(0 == cmp(tn->data,dataToFind))
 			return tn;
-		}
 		if(tn->children.head)
 			return getTreeNode(tn->children, dataToFind, cmp);
 	}
