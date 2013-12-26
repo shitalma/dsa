@@ -69,6 +69,7 @@ int deleteFromTree(Tree *tree, void *data){
 	TreeNode *tn,*parent;
 	Iterator it;
 	tn = getTreeNode(root->children, data, tree->cmp);
+	if(tn == NULL) return 0;
 	if(0 == tn->children.length){
 		parent = tn->parent;
 		it = getIterator(&parent->children);
@@ -88,4 +89,7 @@ int searchInTree(Tree* tree, void* searchElement){
     if(NULL != getTreeNode(root->children,searchElement,tree->cmp))
         return 1;
     return 0;
+}
+void disposeTree(Tree* tree){
+	free(tree->root);
 }

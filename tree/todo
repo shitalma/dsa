@@ -5,3 +5,5 @@ serch for root
 root don't have list
 
 if insert root node and delete it then search functionality is not worrking.
+
+If we insert under parent two nodes then its giving reverse oreder data.
