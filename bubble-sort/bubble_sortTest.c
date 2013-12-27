@@ -19,33 +19,28 @@ int compareString(void* a,void* b){
     return (strcmp(*(String*)a,*(String*)b));
 }
 
-void test_1_sorting_an_array_of_integers(){
-    int expected[] = {1,2,3,4};
-    int actual[] = {4,3,1,2};
-    bsort(actual, 4, sizeof(int), compareInt);
-    ASSERT(0 == memcmp(expected, actual, sizeof(expected)));
-}
-void test_2_sorting_an_array_of_floats(){
-    int expected[] = {1,2,3,4};
-    int actual[] = {4,3,1,2};
-    bsort(actual, 4, sizeof(float), compareInt);
-    ASSERT(0 == memcmp(expected, actual, sizeof(expected)));
-}
-void test_3_sorting_an_array_of_strings(){
-    String expected[] = {"kavita","manali","pallavi","shital"};
-    String actual[] = {"shital","manali","kavita","pallavi"};
-    bsort(actual, 4, sizeof(String), compareString);
-    ASSERT(0 == memcmp(expected, actual, sizeof(expected)));
-}
-void test_4_sorting_an_array_of_characters(){
-    char expected[] = {'k','m','p','s'};
-    char actual[] = {'s','m','k','p'};
-    bsort(actual, 4, sizeof(char), compareChar);
-    ASSERT(0 == memcmp(expected, actual, sizeof(expected)));
-}
-void test_5_sorting_an_array_of_doubles(){
-    double expected[] = {6.000000,7.000000,8.000000,9.000000};
-    double actual[] = {8.000000,9.000000,7.000000,6.000000};
-    bsort(actual, 4, sizeof(double), compareDouble);
-    ASSERT(0 == memcmp(expected, actual, sizeof(expected)));
-}
+void test_sorting_five_integers_elements(){
+    int length = 5;
+    int elementsToSort[] = {5,4,3,2,1},sortedElements[] = {1,2,3,4,5},i;
+    void* base[5] = {&elementsToSort[0],&elementsToSort[1],&elementsToSort[2],&elementsToSort[3],&elementsToSort[4]};
+    bsort(base,5,sizeof(int),compareInt);
+    for(i=0;i<length;i++)
+        ASSERT(sortedElements[i] == *(char*)base[i]);
+};
+void test_sorting_float_elements(){
+    float elementToSort[] = {10.5f,1.5f,2.5f,7.5f},sortedElements[] = {1.5f,2.5f,7.5f,10.5f};
+    int i;
+    void *base[4] = {&elementToSort[0],&elementToSort[1],&elementToSort[2],&elementToSort[3]};
+    bsort(base,4,sizeof(float),compareInt);
+    for(i=0;i<4;i++)
+            ASSERT(sortedElements[i] == *(float*)base[i]);
+};
+
+void test_sorting_double_elements(){
+    double elementsToSort[] = {10.5,1.5,2.5,7.5},sortedElements[] = {1.5,2.5,7.5,10.5};
+    int i;
+    void *base[4] = {&elementsToSort[0],&elementsToSort[1],&elementsToSort[2],&elementsToSort[3]};
+    bsort(base,4,sizeof(double),compareDouble);
+    for(i=0;i<4;i++)
+        ASSERT(sortedElements[i] == *(double*)base[i]);        
+};
