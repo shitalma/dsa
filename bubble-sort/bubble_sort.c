@@ -10,15 +10,15 @@ void bsort(void* base, int numberOfElements, int elementSize,
     void* elementToCompare;
     void* nextElement;
     int comparisonResult;
-    for (i = 0; i < numberOfElements; i++) {
-    	elementToCompare = base + i * elementSize;
-        for (j = i+1; j < numberOfElements; j++) {
-    		nextElement = base + (j) * elementSize;
+    for (i = 1; i < numberOfElements; i++) {
+        for (j = 0; j < numberOfElements-i; j++) {
+    		elementToCompare = base + j * elementSize;
+			nextElement = base + (j+1) * elementSize;
     		comparisonResult = comp(elementToCompare,nextElement);
             if (comparisonResult > 0){
-            	memcpy(temp , nextElement , elementSize);
-            	memcpy(nextElement, elementToCompare, elementSize);
-            	memcpy(elementToCompare, temp, elementSize);
+            	memcpy(temp , elementToCompare , elementSize);
+            	memcpy(elementToCompare,nextElement,  elementSize);
+            	memcpy(nextElement, temp, elementSize);
             }
 
        	}
