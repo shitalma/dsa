@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-//create setup, tearDown, fixtureSetup, fixtureTearDown methods if needed
 typedef char String[256];
 int compareInt ( void* a,  void* b){
     return (*(int*)a - *(int*)b);
@@ -44,3 +43,21 @@ void test_sorting_double_elements(){
     for(i=0;i<4;i++)
         ASSERT(sortedElements[i] == *(double*)base[i]);        
 };
+void test_sorting_character_elements(){
+    char elementsToSort[] = {'d','c','b','a'};
+    char sortedElements[] = {'a','b','c','d'};
+    int i;
+    void *base[4] = {&elementsToSort[0],&elementsToSort[1],&elementsToSort[2],&elementsToSort[3]};
+    bsort(base,4,sizeof(char),compareChar);
+    for(i=0;i<4;i++)
+        ASSERT(sortedElements[i] == *(char*)base[i]);        
+}
+void test_sorting_string_elements(){
+    String elementsToSort[] = {"shital","pooja","manali","kavita"};
+    String sortedElements[] = {"kavita","manali","pooja","shital"};
+    int i;
+    void *base[4] = {&elementsToSort[0],&elementsToSort[1],&elementsToSort[2],&elementsToSort[3]};
+    bsort(base,4,sizeof(String),compareString);
+    for(i=0;i<4;i++)
+        ASSERT(0 == strcmp(sortedElements[i] , *(String*)base[i]));        
+}
