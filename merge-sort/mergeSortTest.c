@@ -22,3 +22,28 @@ void test_sorting_five_integers_elements(){
     for(i=0;i<length;i++)
         ASSERT(sortedElements[i] == *(char*)base[i]);
 };
+void test_sorting_float_elements(){
+    float elementToSort[] = {10.5f,1.5f,2.5f,7.5f},sortedElements[] = {1.5f,2.5f,7.5f,10.5f};
+    int i;
+    void *base[4] = {&elementToSort[0],&elementToSort[1],&elementToSort[2],&elementToSort[3]};
+    msort(base,4,sizeof(float),compareInt);
+    for(i=0;i<4;i++)
+        ASSERT(sortedElements[i] == *(float*)base[i]);
+};
+void test_sorting_double_elements(){
+    double elementsToSort[] = {10.5,1.5,2.5,7.5},sortedElements[] = {1.5,2.5,7.5,10.5};
+    int i;
+    void *base[4] = {&elementsToSort[0],&elementsToSort[1],&elementsToSort[2],&elementsToSort[3]};
+    msort(base,4,sizeof(double),compareDouble);
+    for(i=0;i<4;i++)
+        ASSERT(sortedElements[i] == *(double*)base[i]);        
+};
+void test_sorting_character_elements(){
+    char elementsToSort[] = {'d','c','b','a'};
+    char sortedElements[] = {'a','b','c','d'};
+    int i;
+    void *base[4] = {&elementsToSort[0],&elementsToSort[1],&elementsToSort[2],&elementsToSort[3]};
+    msort(base,4,sizeof(char),compareChar);
+    for(i=0;i<4;i++)
+        ASSERT(sortedElements[i] == *(char*)base[i]);        
+}
