@@ -1,5 +1,6 @@
 #include "./include/arrayList.h"
 #include <stdlib.h>
+#include <stdio.h>
 // #include "iterator.h"
 ArrayList create_arrayList(int capacity) {
     ArrayList list;
@@ -53,17 +54,18 @@ int arrayList_remove(ArrayList *list,int index){
 	return 1;
 }
 void* arrayList_get(ArrayList *list, int index) {
+    printf("%d %d\n",list->length,index );
     if (index < 0 || index >= list->length) return NULL;
     return list->base[index];
 }
-int arrayList_search(ArrayList *list, void *searchElement, compare cmpFun){
-    int i;
-    for(i = 0;i < list->length;i++){
-        if(0 == cmpFun(searchElement,list->base[i]))
-            return i;
-    }
-    return -1;
-}
+// int arrayList_search(ArrayList *list, void *searchElement, compare cmpFun){
+//     int i;
+//     for(i = 0;i < list->length;i++){
+//         if(0 == cmpFun(searchElement,list->base[i]))
+//             return i;
+//     }
+//     return -1;
+// }
 int hasNextForArrayList(Iterator* it){
     ArrayList *list = it->list;
     if(list->length <= it->position) return 0;

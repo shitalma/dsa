@@ -13,14 +13,14 @@ int areAccountsEqual(Account* expected,Account* actual){
     return result;
 }
 int compareAccountsByAccountNumber(void* first, void* second) {
-        Account* firstAccount = (Account*)first;
-        Account* secondAccount = (Account*)second;
-        return firstAccount->accountNumber - secondAccount->accountNumber;
+    Account* firstAccount = (Account*)first;
+    Account* secondAccount = (Account*)second;
+    return firstAccount->accountNumber - secondAccount->accountNumber;
 }
 int compareAccountsByBalance(void* first, void* second) {
-        Account* firstAccount = (Account*)first;
-        Account* secondAccount = (Account*)second;
-        return firstAccount->balance - secondAccount->balance;
+    Account* firstAccount = (Account*)first;
+    Account* secondAccount = (Account*)second;
+    return firstAccount->balance - secondAccount->balance;
 }
 int compareInt ( void* a,  void* b){
     return (*(int*)a - *(int*)b);
