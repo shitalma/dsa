@@ -35,6 +35,8 @@ int HashMap_put(HashMap *map, void *key, void *value){
 	bucketNumber = (map->hashFunc(key)) % 10;
 	hash_node = HashMap_createHashNode(key, value);
 	list = (DoubleList*)ArrayList_get(map->buckets, bucketNumber);
+	if(HashMap_get(map, key))
+		HashMap_remove(map, key);
 	dList_insert(list, list->length, hash_node);
 	return 1;
 }
@@ -53,18 +55,6 @@ void* HashMap_get(HashMap *map, void *key){
     }
     return NULL;
 }
-// void* HashMap_get(HashMap *map, void *key){
-// 	int bucketNumber;
-// 	DoubleList *list;
-// 	HashNode *hash_node;
-// 	bucketNumber = (map->hashFunc(key)) % 10;
-// 	list = (DoubleList*)ArrayList_get(map->buckets, bucketNumber);
-
-// 	hash_node = dList_getData(*list, key, map->cmp);
-// 	if(hash_node)
-// 		return hash_node->value;
-// 	return hash_node;
-// }
 int HashMap_remove(HashMap* map, void* key){
 	int bucketNumber,index = 0;
 	DoubleList* list;
@@ -82,14 +72,20 @@ int HashMap_remove(HashMap* map, void* key){
 	if(index == list->length) return 0;
 	return dList_delete(list,index);
 }
-void* HashMap_keys(HashMap *map){
+void HashMap_keys(HashMap *map){
 	Iterator Arrayiterator = ArrayList_getIterator(map->buckets);
 	Iterator listIterator;
+	int i = 0;
+	void* data[100];
 	HashNode hash_node;
 	while(Arrayiterator.hasNext(&Arrayiterator)){
 		listIterator = dList_getIterator(Arrayiterator.next(&Arrayiterator));
-		while(listIterator.hasNext(&listIterator))
+		while(listIterator.hasNext(&listIterator)){
 			hash_node = (*(HashNode*)listIterator.next(&listIterator));
+			data[i] = hash_node.key;
+			i++;
+		}
 	}
-	return hash_node.key;
+	for(i = 0 ; i < 5 ; i++)
+		printf("%d\n",*(int*)data[i]);
 }

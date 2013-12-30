@@ -1,7 +1,7 @@
 #include "testUtils.h"
 #include "hashmap.h"
 #include <string.h>
-#include <stdio.h>
+
 //create setup, tearDown, fixtureSetup, fixtureTearDown methods if needed
 
 int areKeyEqual(void* key1 , void* key2 ){
@@ -61,7 +61,5 @@ void test_keys_of_hashmap_gives_all_keys_in_map(){
 	ASSERT(HashMap_put(&map, &kajal.key, &kajal.value));
 	ASSERT(HashMap_put(&map, &sayali.key, &sayali.value));
 	ASSERT(HashMap_put(&map, &key1, &value1));
-	result = HashMap_keys(&map);
-	printf("%d\n",*(int*)result );
-	// HashMap_keys(&map);
+	HashMap_keys(&map);
 }
