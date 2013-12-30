@@ -1,29 +1,34 @@
 #include "testUtils.h"
-#include "hashmap.h"	
+#include "hashmap.h"
 #include <string.h>
-#include <stdio.h>
 
-int areKeyEqueal(void* key1 , void* key2 ){
-	return *(int*)key1 - *(int*)key2; 
+//create setup, tearDown, fixtureSetup, fixtureTearDown methods if needed
+
+int areKeyEqual(void* key1 , void* key2 ){
+	return *(int*)key1 - *(int*)key2;
 }
-int hashFun(void* key){
+int hashFun(void *key){
 	return *(int*)key;
-}
+};
+typedef struct{
+	int key;
+	char value[50];
+} Intern;
+Intern manali = {15441,"Manali"};
+Intern shital = {15442,"Shital"};
+Intern kajal = {15345,"Kajal"};
+
 void test_add_an_element_to_hashmap(){
-	int key1 = 45 , value1 = 1;
-	int key2 = 46 , value2 = 2;
-	int key3 = 46 , value3 = 2;
-	HashMap hash = createHash(hashFun , areKeyEqueal);
-	ASSERT(put(&hash,&key1,&value1));
-	ASSERT(put(&hash,&key2,&value2));
-	ASSERT(put(&hash,&key3,&value3));
+	HashMap map = HashMap_createMap(hashFun, areKeyEqual);
+	ASSERT(HashMap_put(&map, &shital.key, &shital.value));
+	ASSERT(0 == strcmp(shital.value,(char*)HashMap_get(&map, &shital.key)));
 }
-void test_get_an_element_from_hashmap(){
-	int key1 = 45 , value1 = 1;
-	void* result;
-	HashMap hash = createHash(hashFun , areKeyEqueal);
-	ASSERT(put(&hash,&key1,&value1));
-	result = get(&hash,&key1);
-	printf("%d\n",*(int*)result);
-	// ASSERT(get(&hash,&key1));
+void test_add_multiple_elements_to_hashmap(){
+	HashMap map = HashMap_createMap(hashFun, areKeyEqual);
+	ASSERT(HashMap_put(&map, &shital.key, &shital.value));
+	ASSERT(HashMap_put(&map, &manali.key, &manali.value));
+	ASSERT(HashMap_put(&map, &kajal.key, &kajal.value));
+	ASSERT(0 == strcmp(shital.value,(char*)HashMap_get(&map, &shital.key)));
+	ASSERT(0 == strcmp(manali.value,(char*)HashMap_get(&map, &manali.key)));
+	ASSERT(0 == strcmp(kajal.value,(char*)HashMap_get(&map, &kajal.key)));
 }

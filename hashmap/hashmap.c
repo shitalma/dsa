@@ -1,48 +1,53 @@
 #include "hashmap.h"
+#include "include/dList.h"
+#include "include/ArrayList.h"
 #include "internalHashMap.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "./include/arrayList.h"
+void createListForEachBucket(void *bucket){
+	DoubleList list;
+	list  = dList_create();
+	*(DoubleList*)bucket = list;
+}
+HashMap HashMap_createMap(hash hashFunc, compare compareKey){
+	HashMap map;
+	int i;
+	ArrayList buckets = ArrayList_create(10);
+	map.buckets = malloc(sizeof(ArrayList));
+	*(ArrayList*)map.buckets = buckets;
+	map.cmp = compareKey;
+	map.hashFunc = hashFunc;
+	for(i = 0;i < 10;i++)
+		ArrayList_add(map.buckets, malloc(sizeof(DoubleList)));
+	ArrayList_iterate(*(ArrayList*)map.buckets, createListForEachBucket);
+	return map;
+}
+HashNode* HashMap_createHashNode(void *key, void *value){
+	HashNode *hash_node = malloc(sizeof(HashNode));
+	hash_node->key = key;
+	hash_node->value = value;
+	return hash_node;
+}
 
-HashMap createHash(Hash_map hash, compare arekeyEqueal){
-    ArrayList buckets = create_arrayList(10);
-    HashMap map;
-    int i;
-    DoubleList list;
-    map.bucket = malloc(sizeof(ArrayList));
-    *(ArrayList*)map.bucket = buckets;
-    map.areKeyEqueal = arekeyEqueal;
-    (*(ArrayList*)map.bucket).length = 10;
-    map.hash = hash;
-    for(i=0;i<10;i++){
-            ((ArrayList*)map.bucket)->base[i] = malloc(sizeof(DoubleList));
-            list = create();
-            *(DoubleList*)(((ArrayList*)map.bucket)->base[i]) = list;
-    }
-    return map;
-}
-HashNode* getHashNode(void* key , void* value){
-	HashNode* hashNode = malloc(sizeof(HashNode));
-	hashNode->key = key;
-	hashNode->value = value;
-	return hashNode;
-}
-int put(HashMap *map, void *key, void *value){
-	DoubleList* doubleList;
-	HashNode *hashNode;
-	int bucketNumber = map->hash(key) % 10;
-	hashNode = getHashNode(key,value);
-	doubleList = (DoubleList*)arrayList_get(map->bucket, bucketNumber);
-	insert(doubleList, doubleList->length, hashNode);
+int HashMap_put(HashMap *map, void *key, void *value){
+	DoubleList *list;
+	HashNode *hash_node;
+	int bucketNumber;
+	bucketNumber = (map->hashFunc(key)) % 10;
+	hash_node = HashMap_createHashNode(key, value);
+	list = (DoubleList*)ArrayList_get(map->buckets, bucketNumber);
+	dList_insert(list, list->length, hash_node);
 	return 1;
 }
-void* get(HashMap *map, void *key){
-    DoubleList* doubleList;
-    DoubleList dList;
-    HashNode *hash_node;
-    int bucketNumber = (map->hash(key) % 10);
-	doubleList = (DoubleList*)arrayList_get(map->bucket, bucketNumber);
-	printf("%p\n",doubleList );
-	hash_node = (HashNode*)getData(dList, &key, map->areKeyEqueal);
-	return hash_node->value;
+void* HashMap_get(HashMap *map, void *key){
+	int bucketNumber;
+	DoubleList *list;
+	HashNode *hash_node;
+	bucketNumber = (map->hashFunc(key)) % 10;
+	list = (DoubleList*)ArrayList_get(map->buckets, bucketNumber);
+	hash_node = dList_getData(*list, key, map->cmp);
+	if(hash_node){
+		return hash_node->value;
+	}	
+	return hash_node;
 }

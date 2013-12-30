@@ -1,23 +1,33 @@
 #include "iterator.h"
+
+#ifndef _ARRAYLIST_
+#define _ARRAYLIST_
 typedef struct {
-    void** base;
-    int capacity;
-    int length;
+	void** base;
+	int capacity;
+	int length;
 } ArrayList;
 
-ArrayList create_arrayList(int capacity);
-// typedef int (*compare)(void* element1,void *element2);
+ArrayList ArrayList_create(int capacity);
+#ifndef _COMPARE_
+#define _COMPARE_
+typedef int (*compare)(void* element1,void *element2);
+#endif
+typedef void ForEach(void* data);
 
-int arrayList_insert(ArrayList *list, int index, void* data);
+int ArrayList_insert(ArrayList *list, int index, void* data);
 
-int arrayList_remove(ArrayList *list,int index);
+int ArrayList_remove(ArrayList *list,int index);
 
-int arrayList_add(ArrayList *list,void *data);
+int ArrayList_add(ArrayList *list,void *data);
 
-void* arrayList_get(ArrayList *list, int index);
+void* ArrayList_get(ArrayList *list, int index);
 
-// int arrayList_search(ArrayList *list, void *searchElement,compare cmpFun);
+int ArrayList_search(ArrayList *list, void *searchElement,compare cmpFun);
 
-Iterator arrayList_getIterator(ArrayList* list);
+void ArrayList_iterate(ArrayList list, ForEach* forEach);
 
-void arrayList_dispose(ArrayList *list);
+Iterator ArrayList_getIterator(ArrayList* list);
+
+void ArrayList_dispose(ArrayList *list);
+#endif

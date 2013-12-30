@@ -1,0 +1,1 @@
+./runTest.sh ./hashmap.c -need:./lib/*
