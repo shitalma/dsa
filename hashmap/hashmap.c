@@ -16,8 +16,9 @@ HashMap HashMap_createMap(hash hashFunc, compare compareKey){
 	map.buckets = malloc(sizeof(ArrayList));
 	*(ArrayList*)map.buckets = buckets;
 	map.cmp = compareKey;
+	map.capacity = 10;
 	map.hashFunc = hashFunc;
-	for(i = 0;i < 10;i++)
+	for(i = 0;i < map.capacity;i++)
 		ArrayList_add(map.buckets, malloc(sizeof(DoubleList)));
 	ArrayList_iterate(*(ArrayList*)map.buckets, createListForEachBucket);
 	return map;
@@ -72,20 +73,30 @@ int HashMap_remove(HashMap* map, void* key){
 	if(index == list->length) return 0;
 	return dList_delete(list,index);
 }
-void HashMap_keys(HashMap *map){
-	Iterator Arrayiterator = ArrayList_getIterator(map->buckets);
-	Iterator listIterator;
-	int i = 0;
-	void* data[100];
-	HashNode hash_node;
-	while(Arrayiterator.hasNext(&Arrayiterator)){
-		listIterator = dList_getIterator(Arrayiterator.next(&Arrayiterator));
-		while(listIterator.hasNext(&listIterator)){
-			hash_node = (*(HashNode*)listIterator.next(&listIterator));
-			data[i] = hash_node.key;
-			i++;
-		}
-	}
-	for(i = 0 ; i < 5 ; i++)
-		printf("%d\n",*(int*)data[i]);
+Iterator HashMap_keys(HashMap *map){
+    Iterator it1;
+    Iterator it2;
+    Iterator result;
+    HashNode *data;
+    DoubleList list = dList_create();
+    it1 = ArrayList_getIterator(map->buckets);
+    while(it1.hasNext(&it1)){
+        it2 = dList_getIterator(it1.next(&it1));
+        while(it2.hasNext(&it2)){
+           data = it2.next(&it2);
+           dList_insert(&list, 0, data->key);
+        }
+    }
+    result = dList_getIterator(&list);
+    return result;
 }
+void disposeHashMap(HashMap *map){
+    int i;
+    DoubleList* listOfHashObjects;
+    Iterator it;
+    for(i = 0 ; i < map->capacity ; i++){
+        listOfHashObjects = (DoubleList*)ArrayList_get(map->buckets,i);
+        dList_dispose(*listOfHashObjects);
+    };
+    free(map->buckets);
+};

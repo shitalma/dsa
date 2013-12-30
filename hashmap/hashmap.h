@@ -9,6 +9,7 @@ typedef int (*hash)(void *key);
 #define _HASHMAP_
 typedef struct {
 	void *buckets;
+	int capacity;
 	hash hashFunc;
 	compare cmp;
 } HashMap;
@@ -17,5 +18,6 @@ HashMap HashMap_createMap(hash hashFunc, compare compareKey);
 int HashMap_put(HashMap* map, void* key, void* value);
 void* HashMap_get(HashMap* map, void* key);
 int HashMap_remove(HashMap* map, void* key);
-void HashMap_keys(HashMap* map);
+Iterator HashMap_keys(HashMap* map);
+void disposeHashMap(HashMap* map);
 #endif
