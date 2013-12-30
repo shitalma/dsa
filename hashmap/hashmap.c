@@ -84,7 +84,7 @@ Iterator HashMap_keys(HashMap *map){
         it2 = dList_getIterator(it1.next(&it1));
         while(it2.hasNext(&it2)){
            data = it2.next(&it2);
-           dList_insert(&list, 0, data->key);
+           dList_insert(&list, list.length, data->key);
         }
     }
     result = dList_getIterator(&list);

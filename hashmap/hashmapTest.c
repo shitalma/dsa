@@ -58,15 +58,18 @@ void test_keys_of_hashmap_gives_all_keys_in_map(){
 	Iterator it;
     HashMap map = HashMap_createMap(hashFun, areKeyEqual);
     ASSERT(HashMap_put(&map,&manali.key , &manali.value));
-    // ASSERT(HashMap_put(&map,&key2 , &data2));
-    // ASSERT(HashMap_put(&map,&key3 , &data3));
-    // ASSERT(HashMap_put(&map,&key4 , &data4));
-    // ASSERT(HashMap_put(&map,&key5 , &data5));
-	HashMap_keys(&map);
+    ASSERT(HashMap_put(&map,&shital.key , &shital.value));
+    ASSERT(HashMap_put(&map,&kajal.key , &kajal.value));
+    ASSERT(HashMap_put(&map,&sayali.key , &sayali.value));
+    ASSERT(HashMap_put(&map,&tanbir , &tanbir.value));
+	it = HashMap_keys(&map);
     ASSERT(15441 == *(int*)it.next(&it));
-    // ASSERT(1235 == *(int*)it.next(&it));
-    // ASSERT(1243 == *(int*)it.next(&it));
-    // ASSERT(1266 == *(int*)it.next(&it));
-    // ASSERT(1278 == *(int*)it.next(&it));
+    ASSERT(15445 == *(int*)it.next(&it));
+    ASSERT(15345 == *(int*)it.next(&it));
+    ASSERT(15348 == *(int*)it.next(&it));
+    ASSERT(15349 == *(int*)it.next(&it));
 	disposeHashMap(&map);
 }
+// 15345,"Kajal"};
+// Intern sayali = {15349,"Sayali"};
+// Intern tanbir = {15348
