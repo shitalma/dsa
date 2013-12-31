@@ -33,29 +33,20 @@ HashNode* HashMap_createHashNode(void *key, void *value){
 	return hash_node;
 }
 void rehash(HashMap* map){
-	Iterator arrayIndex,linkList;
-    Iterator result;
-    HashNode *data;
-	HashNode* hashNode;
-	DoubleList list;
-	HashMap rehash_map;
-	rehash_map = HashMap_createMap(map->hashFunc, map->cmp,map->capacity);
-	rehash_map.capacity = map->capacity*2;
-	list = dList_create();
-    arrayIndex = ArrayList_getIterator(map->buckets);
-    while(arrayIndex.hasNext(&arrayIndex)){
-        linkList = dList_getIterator(arrayIndex.next(&arrayIndex));
-        while(linkList.hasNext(&linkList)){
-           data = linkList.next(&linkList);
-           dList_insert(&list, list.length, data);
-        }
+    void *key,*value;
+    int i,resizeLength = map->capacity * 2;
+    Iterator Keys = HashMap_keys(map);
+    for(i = map->capacity;i < resizeLength;i++){
+        ArrayList_add(map->buckets, malloc(sizeof(DoubleList)));
+        ArrayList_iterate(*(ArrayList*)map->buckets, createListForEachBucket);
     }
-    result = dList_getIterator(&list);
-    while(result.hasNext(&result)){
-    	data = result.next(&result);
-    	HashMap_put(&rehash_map , data->key , data->value);
+    map->capacity = resizeLength;    
+    while(Keys.hasNext(&Keys)){
+        key = Keys.next(&Keys);
+        value = HashMap_get(map, key);
+        HashMap_remove(map , key);
+        HashMap_put(map, key, value);
     }
-    // disposeHashMap(map);
 }
 int HashMap_put(HashMap *map, void *key, void *value){
 	DoubleList *list;
@@ -66,7 +57,7 @@ int HashMap_put(HashMap *map, void *key, void *value){
 	list = (DoubleList*)ArrayList_get(map->buckets, bucketNumber);
 	if(HashMap_get(map, key))
 		HashMap_remove(map, key);
-	if(list->length > 3)
+	if(list->length >=2)
 		rehash(map);
 	dList_insert(list, list->length, hash_node);
 	return 1;
@@ -87,7 +78,6 @@ void* HashMap_get(HashMap *map, void *key){
     }
     return NULL;
 }
-
 int HashMap_remove(HashMap* map, void* key){
 	int bucketNumber,index = 0;
 	DoubleList* list;
@@ -132,4 +122,3 @@ void disposeHashMap(HashMap *map){
     };
     free(map->buckets);
 };
-

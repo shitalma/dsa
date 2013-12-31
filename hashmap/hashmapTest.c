@@ -71,24 +71,32 @@ void test_keys_of_hashmap_gives_all_keys_in_map(){
     ASSERT(15349 == *(int*)it.next(&it));
 	disposeHashMap(&map);
 }
-void test_for_rehash(){
-	Iterator it;
-    Intern shital = {10,"shital"};
-    Intern manali = {20,"manali"};
-    Intern snehal = {30,"snehal"};
-    Intern komal = {40,"komal"};
-    int key1 = 10,key2 = 20;
-	int key3 = 30,key4 = 40;
-    HashMap map = HashMap_createMap(hashFun,areKeyEqual,10);
-    HashMap_put(&map,&key1,&shital.value);
-    HashMap_put(&map,&key2,&manali.value);
-    HashMap_put(&map,&key3,&snehal.value);
-    HashMap_put(&map,&key4,&komal.value);
+void test_rehash_elements_to_hashmap(){
+    void* data;
+    Iterator it;
+    int key1 = 2, data1 = 1;
+    int key2 = 3, data2 = 2;
+    int key3 = 4, data3 = 3;
+    int key4 = 5, data4 = 4;
+    int key5 = 14, data5 = 5;
+    int key6 = 24, data6 = 6;
+    int key7 = 6, data7 = 7;
+    HashMap map = HashMap_createMap(hashFun, areKeyEqual,10);
+    ASSERT(HashMap_put(&map,&key1 , &data1));
+    ASSERT(HashMap_put(&map,&key2 , &data2));
+    ASSERT(HashMap_put(&map,&key3 , &data3));
+    ASSERT(HashMap_put(&map,&key4 , &data4));
+    ASSERT(HashMap_put(&map,&key5 , &data5));
+    ASSERT(HashMap_put(&map,&key6 , &data6));
+    ASSERT(HashMap_put(&map,&key7 , &data7));
     it = HashMap_keys(&map);
-    ASSERT(10 == *(int*)it.next(&it));
-    ASSERT(20 == *(int*)it.next(&it));
-    ASSERT(30 == *(int*)it.next(&it));
-    ASSERT(40 == *(int*)it.next(&it));
-    ASSERT(NULL == it.next(&it));
-    disposeHashMap(&map);
+    
+    ASSERT(2 == *(int*)it.next(&it));
+    ASSERT(3 == *(int*)it.next(&it));
+    ASSERT(4 == *(int*)it.next(&it));
+    ASSERT(24 == *(int*)it.next(&it));
+    ASSERT(5 == *(int*)it.next(&it));
+    ASSERT(6 == *(int*)it.next(&it));
+    ASSERT(14 == *(int*)it.next(&it));
+
 }
