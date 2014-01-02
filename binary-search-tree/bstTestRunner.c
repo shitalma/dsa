@@ -59,6 +59,16 @@ int main(){
 		test_insert_in_binary_tree_value_greater_than_root_should_insert_on_right();
 	tearDown();
 	testEnded();
+	testStarted("test_insert_in_binary_tree_value_lesser_than_root_should_insert_on_left");
+	setup();
+		test_insert_in_binary_tree_value_lesser_than_root_should_insert_on_left();
+	tearDown();
+	testEnded();
+	testStarted("test_get_children_of_root");
+	setup();
+		test_get_children_of_root();
+	tearDown();
+	testEnded();
 
 	summarizeTestCount();
 	fixtureTearDown();
