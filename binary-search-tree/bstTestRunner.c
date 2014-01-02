@@ -79,6 +79,16 @@ int main(){
 		test_remove_an_element_from_root();
 	tearDown();
 	testEnded();
+	testStarted("test_remove_an_element_from_second_level_left_element");
+	setup();
+		test_remove_an_element_from_second_level_left_element();
+	tearDown();
+	testEnded();
+	testStarted("test_remove_an_element_from_second_level_right_element");
+	setup();
+		test_remove_an_element_from_second_level_right_element();
+	tearDown();
+	testEnded();
 
 	summarizeTestCount();
 	fixtureTearDown();

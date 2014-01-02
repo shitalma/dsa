@@ -27,33 +27,36 @@ BSTNode* getParentToInsert(BSTNode *node,void *value,compareFunc fun){
 		return node;	
  	return getParentToInsert(node->right, value, fun);
 }
-BSTNode* getParentToRemove(BSTNode *node,void *value,compareFunc fun){
-	if(fun(value,node->data) == 0)
-		return node;
-	if(fun(value,node->data) < 0)
-		return getParentToInsert(node->left, value, fun);
- 	else return getParentToInsert(node->right, value, fun);
- 	return NULL;
+BSTNode* getParentToRemove(BSTNode *parentNode,BSTNode *nodeToDelete,void *value,compareFunc fun){
+	if(fun(value,nodeToDelete->data) == 0)
+		return parentNode;
+	if(fun(value,nodeToDelete->data) < 0)
+		return getParentToRemove(nodeToDelete,nodeToDelete->left, value, fun);
+	else return getParentToRemove(nodeToDelete,nodeToDelete->right, value, fun);
+	return NULL;
 }
-int BSTremove(BST *tree, void *value){
+int BSTremoveLeafNode(BST *tree, void *value){
 	BSTNode* parentNode = tree->root;
-	if(parentNode->left == NULL && parentNode->right == NULL){
-		free(tree->root);
+	if(0 == tree->comp(value,parentNode->data)){
+		free(parentNode);
 		tree->root = NULL;
 		return 1;
 	}
-	parentNode = getParentToRemove(tree->root, value, tree->comp);
-	if(NULL == parentNode)
-		return 0;
-	if(tree->comp(value,parentNode->data) > 0){
-		free(parentNode->right);
-		parentNode->right = NULL;
-	}
-	else{
+	if(tree->comp(value,parentNode->data) < 0){
+		parentNode = getParentToRemove(parentNode,parentNode->left, value, tree->comp);
 		free(parentNode->left);
-		parentNode->left = NULL;	
-	} 
-	return 1;
+		parentNode->left = NULL;
+		return 1; 
+	}
+	parentNode = getParentToRemove(parentNode,parentNode->right, value, tree->comp);
+	free(parentNode->right);
+	parentNode->right = NULL;
+	return 1; 
+}
+int BSTremove(BST *tree, void *value){
+	if(NULL == tree->root)
+		return 0;
+	return BSTremoveLeafNode(tree, value);
 }
 int BSTinsert(BST *tree, void *value){
 	BSTNode *nodeToInsert,*node;
@@ -71,15 +74,13 @@ int BSTinsert(BST *tree, void *value){
 	return 0;
 }
 int BSTsearch(BST *tree, void *value){
-	BSTNode *parentNode,*rootNode;
+	BSTNode *rootNode;
 	rootNode = tree->root;
 	if(NULL == rootNode) return 0;
 	if(NULL == getParentToInsert(rootNode, value, tree->comp))
 		return 1;
 	return 0;
 }
-
-
 Children getChildren(BST *tree, void *parent){
 	Children children = {NULL,NULL}; 
 	BSTNode *parentNode,*leftNode,*rightNode;
@@ -94,8 +95,4 @@ Children getChildren(BST *tree, void *parent){
 		children.rightData = rightNode->data;
 	}
 	return children;
-}
-
-void dispose(BST *tree){
-
 }

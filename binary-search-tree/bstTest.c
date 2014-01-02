@@ -63,9 +63,26 @@ void test_get_children_of_root(){
 void test_remove_an_element_from_root(){
 	BST tree;
 	int value[] = {4,3,8};
-	Children root_s_children;
 	tree = BSTcreate(compare);
 	ASSERT(1 == BSTinsert(&tree,&value[0]));
 	ASSERT(1 == BSTremove(&tree,&value[0]));
 	ASSERT(0 == BSTsearch(&tree,&value[0]));
+}
+void test_remove_an_element_from_second_level_left_element(){
+	BST tree;
+	int value[] = {4,3,8};
+	tree = BSTcreate(compare);
+	ASSERT(1 == BSTinsert(&tree,&value[0]));
+	ASSERT(1 == BSTinsert(&tree,&value[1]));
+	ASSERT(1 == BSTremove(&tree,&value[1]));
+	ASSERT(0 == BSTsearch(&tree,&value[1]));
+}
+void test_remove_an_element_from_second_level_right_element(){
+	BST tree;
+	int value[] = {4,3,8};
+	tree = BSTcreate(compare);
+	ASSERT(1 == BSTinsert(&tree,&value[0]));
+	ASSERT(1 == BSTinsert(&tree,&value[2]));
+	ASSERT(1 == BSTremove(&tree,&value[2]));
+	ASSERT(0 == BSTsearch(&tree,&value[2]));
 }
