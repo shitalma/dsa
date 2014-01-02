@@ -19,6 +19,7 @@ typedef struct {
 BST BSTcreate(compareFunc comp);
 int BSTinsert(BST* tree , void *value);
 int BSTsearch(BST* tree, void *value);
+int BSTremove(BST* tree, void *value);
 Children getChildren(BST* tree, void *parent);
 void dispose();
 #endif

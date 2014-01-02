@@ -64,9 +64,19 @@ int main(){
 		test_insert_in_binary_tree_value_lesser_than_root_should_insert_on_left();
 	tearDown();
 	testEnded();
+	testStarted("test_insert_at_diffrent_levels_of_binary_tree");
+	setup();
+		test_insert_at_diffrent_levels_of_binary_tree();
+	tearDown();
+	testEnded();
 	testStarted("test_get_children_of_root");
 	setup();
 		test_get_children_of_root();
+	tearDown();
+	testEnded();
+	testStarted("test_remove_an_element_from_root");
+	setup();
+		test_remove_an_element_from_root();
 	tearDown();
 	testEnded();
 
