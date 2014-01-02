@@ -1,6 +1,7 @@
 #include "dList.h"
 #include <stdlib.h>
 #include "include/iterator.h"
+#include <stdio.h>
 node* dList_createNode(void *prevAddress,void *data, void *nextAddress){
 	node *element = malloc(sizeof(node));
 	element->previous = prevAddress;
