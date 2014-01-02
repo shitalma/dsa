@@ -68,6 +68,20 @@ void test_remove_an_element_from_root(){
 	ASSERT(1 == BSTremove(&tree,&value[0]));
 	ASSERT(0 == BSTsearch(&tree,&value[0]));
 }
+void test_remove_an_element_from_empty_tree(){
+	BST tree;
+	int value[] = {4};
+	tree = BSTcreate(compare);
+	ASSERT(0 == BSTremove(&tree,&value[0]));
+}
+void test_remove_element_which_is_not_present_for_root(){
+	BST tree;
+	int value[] = {4,3};
+	tree = BSTcreate(compare);
+	ASSERT(1 == BSTinsert(&tree,&value[0]));
+	ASSERT(0 == BSTremove(&tree,&value[1]));
+	// ASSERT(0 == BSTsearch(&tree,&value[0]));
+}
 void test_remove_an_element_from_second_level_left_element(){
 	BST tree;
 	int value[] = {4,3,8};
@@ -86,3 +100,4 @@ void test_remove_an_element_from_second_level_right_element(){
 	ASSERT(1 == BSTremove(&tree,&value[2]));
 	ASSERT(0 == BSTsearch(&tree,&value[2]));
 }
+

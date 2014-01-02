@@ -28,6 +28,8 @@ BSTNode* getParentToInsert(BSTNode *node,void *value,compareFunc fun){
  	return getParentToInsert(node->right, value, fun);
 }
 BSTNode* getParentToRemove(BSTNode *parentNode,BSTNode *nodeToDelete,void *value,compareFunc fun){
+	if(nodeToDelete == NULL)
+		return NULL;
 	if(fun(value,nodeToDelete->data) == 0)
 		return parentNode;
 	if(fun(value,nodeToDelete->data) < 0)
@@ -42,13 +44,18 @@ int BSTremoveLeafNode(BST *tree, void *value){
 		tree->root = NULL;
 		return 1;
 	}
+
 	if(tree->comp(value,parentNode->data) < 0){
 		parentNode = getParentToRemove(parentNode,parentNode->left, value, tree->comp);
+		if(NULL == parentNode)
+			return 0;
 		free(parentNode->left);
 		parentNode->left = NULL;
 		return 1; 
 	}
 	parentNode = getParentToRemove(parentNode,parentNode->right, value, tree->comp);
+	if(NULL == parentNode)
+			return 0;
 	free(parentNode->right);
 	parentNode->right = NULL;
 	return 1; 
